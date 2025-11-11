@@ -19,7 +19,88 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: 100vh;<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Titolo pagina -->
+    <title>APP Autisti</title>
+
+    <!-- Icone personalizzate -->
+        <!-- Icona per browser desktop -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+
+    <!-- Icona per Android -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+
+    <!-- Icona per iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+    
+    <!-- Stile minimale -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: #115293;
+        }
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚛 Entra nella nostra APP</h1>
+    <p>Abilita la posizione per procedere con la richiesta.</p>
+    <button onclick="activateGPS()"> Avvia</button>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                alert("Geolocalizzazione non supportata dal browser.");
+            }
+        }
+
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Reindirizza alla tua app Streamlit con i parametri lat/lon
+            window.location.href = `https://gestione-code-uh4fcq6ng2f533a7bmjpap.streamlit.app/autista}`;
+        }
+
+        function error(err) {
+            if (err.code === err.PERMISSION_DENIED) {
+                alert("Permesso GPS negato. Consenti la posizione per continuare.");
+            } else {
+                alert("Errore rilevamento posizione: " + err.message);
+            }
+        }
+    </script>
+</body>
+</html>
             margin: 0;
             background-color: #f0f2f5;
         }
