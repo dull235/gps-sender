@@ -1,34 +1,78 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <title>GPS Sender</title>
-  </head>
-  <body style="font-family:sans-serif; text-align:center; padding:2em;">
-    <h3>📍 Attiva la tua posizione GPS</h3>
-    <button onclick="getLocation()">Avvia</button>
-    <p id="status"></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GPS Autisti</title>
+
+    <!-- Icone -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png">
+
+    <!-- Stile CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: #115293;
+        }
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>📍 Attiva il GPS</h1>
+    <button onclick="getLocation()">Avvia GPS</button>
 
     <script>
-      function getLocation() {
-        document.getElementById("status").innerText = "Richiesta posizione...";
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(success, error);
-        } else {
-          document.getElementById("status").innerText = "Geolocalizzazione non supportata.";
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                alert("Geolocalizzazione non supportata dal browser.");
+            }
         }
-      }
 
-      function success(pos) {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        const url = "https://TUO-APP-STREAMLIT.streamlit.app/?lat=" + lat + "&lon=" + lon;
-        window.location.href = url;
-      }
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
 
-      function error(err) {
-        document.getElementById("status").innerText = "Errore GPS: " + err.message;
-      }
+            // Sostituisci con il link della tua app Streamlit
+            const streamlitLink = "https://dull235.streamlit.app/";
+
+            // Reindirizza alla tua app Streamlit con lat/lon
+            window.location.href = `${streamlitLink}?lat=${lat}&lon=${lon}`;
+        }
+
+        function error(err) {
+            if (err.code === err.PERMISSION_DENIED) {
+                alert("Permesso GPS negato. Consenti la posizione per continuare.");
+            } else {
+                alert("Errore rilevamento posizione: " + err.message);
+            }
+        }
     </script>
-  </body>
+</body>
 </html>
