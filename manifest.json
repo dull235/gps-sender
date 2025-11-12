@@ -1,0 +1,20 @@
+{
+  "name": "GPS Autisti",
+  "short_name": "GPS Autisti",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/dull235/Gestione-code/main/static/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
