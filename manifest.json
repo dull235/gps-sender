@@ -1,7 +1,7 @@
 {
   "name": "APP Autisti",
   "short_name": "APP Autisti",
-  "start_url": "/",
+  "start_url": "/index.html",
   "scope": "/gps-sender/",
   "display": "standalone",
   "background_color": "#ffffff",
