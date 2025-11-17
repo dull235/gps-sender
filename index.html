@@ -59,7 +59,7 @@
         function getLocation() {
             const status = document.getElementById("status");
             status.style.display = "block";
-            status.textContent = "⏳ Recupero posizione…";
+            status.textContent = "Attivato… sto aprendo l'app";
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error, {
@@ -91,9 +91,9 @@
 
         // PWA Service Worker
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker
-                .register("service-worker.js")
-                .catch(err => console.log("SW error:", err));
+            navigator.serviceWorker.register("service-worker.js")
+                .then(() => console.log("SW ok"))
+                .catch(err => console.log(err));
         }
     </script>
 </body>
