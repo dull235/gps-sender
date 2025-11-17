@@ -6,7 +6,7 @@
 
     <title>GPS Autisti</title>
 
-    <!-- Icone -->
+    <!-- Icone + PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1976d2">
 
@@ -39,16 +39,32 @@
             text-align: center;
             color: #1976d2;
         }
+        #status {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #1976d2;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>📍 Attiva il GPS</h1>
     <button onclick="getLocation()">Avvia GPS</button>
 
+    <div id="status">⏳ Recupero posizione…</div>
+
     <script>
+        const APP_URL = "https://gestione-code-realtime.onrender.com"; // <-- QUI ORA È CORRETTO
+
         function getLocation() {
+            const status = document.getElementById("status");
+            status.style.display = "block";
+            status.textContent = "⏳ Recupero posizione…";
+
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
+                navigator.geolocation.getCurrentPosition(success, error, {
+                    enableHighAccuracy: true
+                });
             } else {
                 alert("Geolocalizzazione non supportata dal browser.");
             }
@@ -58,19 +74,26 @@
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
 
-            // Sostituisci con il link della tua app Streamlit
-            const streamlitLink = "https://gestione-code-uh4fcq6ng2f533a7bmjpap.streamlit.app/";
-
-            // Reindirizza alla tua app Streamlit con lat/lon
-            window.location.href = `${streamlitLink}?lat=${lat}&lon=${lon}`;
+            const url = `${APP_URL}?lat=${lat}&lon=${lon}`;
+            window.location.href = url;
         }
 
         function error(err) {
+            const status = document.getElementById("status");
+            status.style.display = "none";
+
             if (err.code === err.PERMISSION_DENIED) {
-                alert("Permesso GPS negato. Consenti la posizione per continuare.");
+                alert("Permesso GPS negato. Devi abilitarlo per continuare.");
             } else {
-                alert("Errore rilevamento posizione: " + err.message);
+                alert("Errore posizione: " + err.message);
             }
+        }
+
+        // PWA Service Worker
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .catch(err => console.log("SW error:", err));
         }
     </script>
 </body>
